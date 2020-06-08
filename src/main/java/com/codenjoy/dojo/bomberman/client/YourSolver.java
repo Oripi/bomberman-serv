@@ -47,7 +47,7 @@ public class YourSolver implements Solver<Board> {
         if (board.isMyBombermanDead()) return "";
 
         // put your logic here
-        return Direction.ACT.toString();
+        return Direction.valueOf(this.dice.next(6)).toString();
     }
 
     /**
