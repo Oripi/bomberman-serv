@@ -57,9 +57,16 @@ public class YourSolver implements Solver<Board> {
      * 3. Copy the whole link from the browser, paste it inside below method, now you're good to go!
      */
     public static void main(String[] args) {
+
+        String host = "3.133.109.198";
+        String port = "8080";
+        String playerId = "g2kzb99qhnjs217fkcyy";
+        String code = "3689161262388400247";
+
         WebSocketRunner.runClient(
                 // paste here board page url from browser after registration
-                "http://codenjoy.com:80/codenjoy-contest/board/player/3edq63tw0bq4w4iem7nb?code=1234567890123456789",
+
+                "http://" + host + ":" + port + "/codenjoy-contest/board/player/" + playerId + "?code=" + code,
                 new YourSolver(new RandomDice()),
                 new Board());
     }
