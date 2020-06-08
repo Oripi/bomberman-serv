@@ -22,32 +22,39 @@ package com.codenjoy.dojo.bomberman.client;
  * #L%
  */
 
-import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.client.Solver;
 import com.codenjoy.dojo.client.WebSocketRunner;
-import com.codenjoy.dojo.services.Dice;
-import com.codenjoy.dojo.services.RandomDice;
+
+import java.util.List;
 
 /**
  * User: your name
  */
 public class YourSolver implements Solver<Board> {
 
-    private Dice dice;
-    private Board board;
+    private BigBrain brain;
 
-    public YourSolver(Dice dice) {
-        this.dice = dice;
+    public YourSolver() {
+        this.brain = new BigBrain();
     }
 
     // the method which should be implemented
     @Override
     public String get(Board board) {
-        this.board = board;
         if (board.isMyBombermanDead()) return "";
 
-        // put your logic here
-        return Direction.valueOf(this.dice.next(6)).toString();
+        return movesToString(this.brain.nextMoves(board));
+    }
+
+    private String movesToString(List<String> moves) {
+        StringBuilder sb = new StringBuilder();
+        sb.append('(');
+        for (String s : moves) {
+            sb.append(s).append(',');
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(')');
+        return sb.toString();
     }
 
     /**
@@ -67,7 +74,7 @@ public class YourSolver implements Solver<Board> {
                 // paste here board page url from browser after registration
 
                 "http://" + host + ":" + port + "/codenjoy-contest/board/player/" + playerId + "?code=" + code,
-                new YourSolver(new RandomDice()),
+                new YourSolver(),
                 new Board());
     }
 
