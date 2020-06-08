@@ -30,6 +30,7 @@ import static com.codenjoy.dojo.services.PointImpl.pt;
 
 import com.codenjoy.dojo.client.AbstractBoard;
 import com.codenjoy.dojo.services.Point;
+import com.codenjoy.dojo.services.PointImpl;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -92,7 +93,12 @@ public class Board extends AbstractBoard<Elements> {
     }
 
     public Point getBomberman() {
-        return get(BOMBERMAN, BOMB_BOMBERMAN, DEAD_BOMBERMAN).get(0);
+        List<Point> temp = get(BOMBERMAN, BOMB_BOMBERMAN, DEAD_BOMBERMAN);
+        if (temp.size() > 0) {
+            return temp.get(0);
+        } else {
+            return new PointImpl(0, 0);
+        }
     }
 
     public Collection<Point> getOtherBombermans() {
