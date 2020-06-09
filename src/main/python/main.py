@@ -32,6 +32,11 @@ from urllib.parse import urlparse, parse_qs
 def get_url_for_ws(url):
     parsed_url = urlparse(url)
     query = parse_qs(parsed_url.query)
+    # host = "3.133.109.198"
+    # port = "8080"
+    # playerId = "g2kzb99qhnjs217fkcyy"
+    # code = "3689161262388400247"
+    # "http://" + host + ":" + port + "/codenjoy-contest/board/player/" + playerId + "?code=" + code,
 
     return "{}://{}/codenjoy-contest/ws?user={}&code={}".format('ws' if parsed_url.scheme == 'http' else 'wss',
                                                                 parsed_url.netloc,
@@ -43,9 +48,10 @@ def main():
     assert version_info[0] == 3, "You should run me with Python 3.x"
 
     # substitute following link with the one you've copied in your browser after registration
-    url = "https://dojorena.io/codenjoy-contest/board/player/8aq9izxu40h7blnrd3l9?code=6712803793075447834&gameName=bomberman"
+    url = "http://3.133.109.198:8080//codenjoy-contest/board/player/789wip8bpf2nkwxinw16?code=5974237480924291549&gameName=bomberman"
     direction_solver = DirectionSolver()
 
+    print(get_url_for_ws(url))
     wcl = WebClient(url=get_url_for_ws(url), solver=direction_solver)
     wcl.run_forever()
 
