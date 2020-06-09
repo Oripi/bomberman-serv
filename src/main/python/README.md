@@ -13,3 +13,10 @@ To connect to the game server:
 
 The bomberman actions logic should be extended by modifying the find_direction method in dds.py
 or by calling your own method from get() in the same dds.py
+
+For Training model:
+==================
+pip3 install pygame
+pip3 install numpy
+pip3 install tensorflow
+pip3 install tflearn
