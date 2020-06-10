@@ -50,7 +50,7 @@ def main():
     assert version_info[0] == 3, "You should run me with Python 3.x"
 
     # substitute following link with the one you've copied in your browser after registration
-    url = "http://3.133.109.198:8080//codenjoy-contest/board/player/789wip8bpf2nkwxinw16?code=5974237480924291549&gameName=bomberman"
+    url = "http://3.133.109.198:8080//codenjoy-contest/board/player/g2kzb99qhnjs217fkcyy?code=3689161262388400247&gameName=bomberman"
     direction_solver = DirectionSolver()
 
     print(get_url_for_ws(url))
