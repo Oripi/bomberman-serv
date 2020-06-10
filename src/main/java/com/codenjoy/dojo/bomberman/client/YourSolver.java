@@ -43,7 +43,7 @@ public class YourSolver implements Solver<Board> {
     public String get(Board board) {
         if (board.isMyBombermanDead()) return "";
 
-        return movesToString(this.brain.nextMoves(board));
+        return this.brain.nextMove(board);
     }
 
     private String movesToString(List<String> moves) {
