@@ -22,6 +22,16 @@
 # #L%
 ###
 
+from enum import Enum
+
+class DirectionOptions(Enum):
+    LEFT = 1
+    RIGHT = 2
+    DOWN = 3
+    UP = 4
+    ACT = 5
+    STOP = 6
+
 _DIRECTIONS = dict(
     LEFT = (0, -1,  0),
     RIGHT = (1,  1,  0),

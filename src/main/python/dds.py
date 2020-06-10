@@ -41,6 +41,8 @@ class DirectionSolver:
     def get(self, board_string):
         """ The function that should be implemented."""
         self._board = Board(board_string)
+        print(board_string)
+        print('len: ', len(board_string))
         _command = self.find_direction()
         print("Sending Command {}".format(_command))
 
@@ -66,7 +68,9 @@ class DirectionSolver:
         _barriers = self._board.get_barriers()
         _deadline = time() + 30
         while time() < _deadline:
-            # here we get the random direction choise
+            if round(time()) % 5 == 0:
+                return Direction('ACT').to_string()
+            # here we get the random direction choice
             __dir = Direction(choice(('LEFT', 'RIGHT', 'DOWN', 'UP')))
             # now we calculate the coordinates of potential point to go
             _x, _y = __dir.change_x(_bm.get_x()), __dir.change_y(_bm.get_y())

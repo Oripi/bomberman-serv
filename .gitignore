@@ -5,3 +5,7 @@ __pycache__/
 *$py.class
 .Python
 build/
+.DS_Store
+checkpoint
+*.pb
+export/

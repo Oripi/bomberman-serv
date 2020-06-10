@@ -27,6 +27,8 @@ from sys import version_info
 from webclient import WebClient
 from dds import DirectionSolver
 from urllib.parse import urlparse, parse_qs
+from model.data_generator import start
+from model.nn_model import freeze_graph
 
 
 def get_url_for_ws(url):
@@ -57,4 +59,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    model, labels = start()
+    model.save('./export/my_model')
+    freeze_graph('./export')
