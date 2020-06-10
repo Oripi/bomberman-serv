@@ -30,4 +30,6 @@ For Java:
     + you can add you own methods for work with board
 - in test package .\src\test\java\com\codenjoy\dojo\bomberman\client
     + you can write yor own test
+- install tensorflow
+    + brew install tensorflow
 - Codenjoy!
