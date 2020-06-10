@@ -23,13 +23,11 @@ package com.codenjoy.dojo.bomberman.client;
  */
 
 import com.codenjoy.dojo.services.Dice;
-import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.services.RandomDice;
 
 import java.util.*;
 
-import static com.codenjoy.dojo.bomberman.model.Elements.BOMB_TIMER_1;
 import static com.codenjoy.dojo.services.PointImpl.pt;
 
 class BigBrain {
@@ -78,11 +76,33 @@ class BigBrain {
         }
 
         double score = 0;
+        // ----------------------Barrier---------------------
         if (board.isBarrierAt(newBm)) {
             score += -1000000f;
             System.out.println("isBarrierAt -1000000");
         }
 
+        // ----------------------FUTURE BLASTS---------------------
+        Collection<Point> futureBlasts = getFutureBlasts(board);
+        double blastsScore = futureBlasts.stream().mapToDouble(fb -> {
+            double dist = dist(newBm, fb);
+            if (dist <= 3 && futureBlasts.contains(newBm)) {
+                return -4000f * dist;
+            } else {
+                return 0f;
+            }
+        }).sum();
+        System.out.println("blastsScore: " + blastsScore);
+        score += blastsScore;
+
+
+//        boolean isInBlastRange = futureBlasts.contains(newBm); // need to make sure that "isEqual" is implemented and filtered
+//        if (isInBlastRange) {
+//            score += -4000f * ; // could be the score (50) with multiplier
+//            System.out.println("isInBlastRange: " + isInBlastRange + ", -1000");
+//        }
+
+        // ----------------------Enemy---------------------
         Collection<Point> otherBms = board.getOtherBombermans();
         double othersScore = otherBms.stream().mapToDouble(obm -> {
             double dist = dist(newBm, obm);
@@ -95,6 +115,7 @@ class BigBrain {
         System.out.println("othersScore: " + othersScore);
         score += othersScore;
 
+        // ----------------------Monsters---------------------
         Collection<Point> monsters = board.getMeatChoppers();
         double monstersScore = monsters.stream().mapToDouble(monster -> {
             double dist = dist(newBm, monster);
@@ -107,6 +128,7 @@ class BigBrain {
         System.out.println("monstersScore: " + monstersScore);
         score += monstersScore;
 
+        // ----------------------Walls---------------------
         Collection<Point> walls = board.getDestroyableWalls();
         double wallsScore = walls.stream().mapToDouble(wall -> {
             double dist = dist(newBm, wall);
@@ -114,23 +136,6 @@ class BigBrain {
         }).sum();
         System.out.println("wallsScore: " + wallsScore);
         score += wallsScore;
-
-
-//        Collection<Point> blasts = board.get(BOMB_TIMER_1);
-//        if (blasts.size() > 1) {
-//            for (Point b : blasts) {
-//                if (newBm.itsMe(b)) {
-//                    score += -100000000f;
-//                    break;
-//                }
-//            }
-//        }
-        Collection<Point> futureBlasts = getFutureBlasts(board);
-        boolean isInBlastRange = futureBlasts.contains(newBm); // need to make sure that "isEqual" is implemented and filtered
-        if (isInBlastRange) {
-            score += -4000f; // could be the score (50) with multiplier
-            System.out.println("isInBlastRange: " + isInBlastRange + ", -1000");
-        }
 
         System.out.println("final score: " + score);
         return score;
@@ -179,10 +184,10 @@ enum Move {
     DOWN("DOWN"),
     STOP("STOP"),
     ACT("ACT"),
-    ACT_LEFT("(ACT,LEFT)"),
-    ACT_RIGHT("(ACT,RIGHT)"),
-    ACT_UP("(ACT,UP)"),
-    ACT_DOWN("(ACT,DOWN)");
+    ACT_LEFT("(LEFT,ACT)"),
+    ACT_RIGHT("(RIGHT,ACT)"),
+    ACT_UP("(UP,ACT)"),
+    ACT_DOWN("(DOWN,ACT)");
 
     private String value;
 
