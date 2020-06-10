@@ -24,6 +24,7 @@ package com.codenjoy.dojo.bomberman.client;
 
 import com.codenjoy.dojo.services.Dice;
 import com.codenjoy.dojo.services.Point;
+import com.codenjoy.dojo.services.PointImpl;
 import com.codenjoy.dojo.services.RandomDice;
 
 import java.util.*;
@@ -128,15 +129,35 @@ class BigBrain {
         System.out.println("monstersScore: " + monstersScore);
         score += monstersScore;
 
-        // ----------------------Walls---------------------
-        Collection<Point> walls = board.getDestroyableWalls();
-        double wallsScore = walls.stream().mapToDouble(wall -> {
-            double dist = dist(newBm, wall);
-            return (dist < 2f ? 10f : 0f);
-        }).sum();
-        System.out.println("wallsScore: " + wallsScore);
-        score += wallsScore;
+//        // ----------------------Walls---------------------
+//        Collection<Point> walls = board.getDestroyableWalls();
+//        double wallsScore = walls.stream().mapToDouble(wall -> {
+//            double dist = dist(newBm, wall);
+//            return (dist < 2f ? 10f : 0f);
+//        }).sum();
+//        System.out.println("wallsScore: " + wallsScore);
+//        score += wallsScore;
 
+//        // ----------------------Not getting stuck---------------------
+//        Collection<Point> neighbours = new LinkedList<>();
+//        neighbours.add(new PointImpl(newBm.getX() + 1, newBm.getY()));
+//        neighbours.add(new PointImpl(newBm.getX() - 1, newBm.getY()));
+//        neighbours.add(new PointImpl(newBm.getX(), newBm.getY() + 1));
+//        neighbours.add(new PointImpl(newBm.getX(), newBm.getY() - 1));
+//        switch (m) {
+//            case LEFT:
+//            case RIGHT:
+//            case UP:
+//            case DOWN:
+//                neighbours.removeIf(bm::equals);
+//        }
+//
+//        if (board.getBarriers().containsAll(neighbours)) {
+//            System.out.println("will be stuck -10000");
+//            score += -10000f;
+//        }
+
+        // ----------------------Final score---------------------
         System.out.println("final score: " + score);
         return score;
 
